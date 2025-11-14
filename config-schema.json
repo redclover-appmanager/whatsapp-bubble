@@ -1,0 +1,73 @@
+{
+  "phone_number": {
+    "type": "string",
+    "required": true,
+    "pattern": "^[0-9]{10,15}$",
+    "description": "WhatsApp phone number with country code (no + or spaces)",
+    "example": "5491112345678"
+  },
+  "default_message": {
+    "type": "string",
+    "required": false,
+    "maxLength": 500,
+    "description": "Pre-filled message when opening WhatsApp",
+    "example": "Hello! I'm interested in your services"
+  },
+  "position": {
+    "type": "string",
+    "required": false,
+    "enum": ["bottom-right", "bottom-left", "top-right", "top-left"],
+    "default": "bottom-right",
+    "description": "Corner position of the bubble"
+  },
+  "enabled": {
+    "type": "boolean",
+    "required": false,
+    "default": true,
+    "description": "Enable or disable the widget"
+  },
+  "bubble_size": {
+    "type": "number",
+    "required": false,
+    "min": 40,
+    "max": 80,
+    "default": 60,
+    "description": "Bubble diameter in pixels"
+  },
+  "offset_x": {
+    "type": "number",
+    "required": false,
+    "min": 10,
+    "max": 100,
+    "default": 20,
+    "description": "Horizontal offset from edge in pixels"
+  },
+  "offset_y": {
+    "type": "number",
+    "required": false,
+    "min": 10,
+    "max": 100,
+    "default": 20,
+    "description": "Vertical offset from edge in pixels"
+  },
+  "bubble_color": {
+    "type": "string",
+    "required": false,
+    "pattern": "^#[0-9A-Fa-f]{6}$",
+    "default": "#25D366",
+    "description": "Background color of the bubble (hex)"
+  },
+  "show_tooltip": {
+    "type": "boolean",
+    "required": false,
+    "default": true,
+    "description": "Show tooltip on hover"
+  },
+  "tooltip_text": {
+    "type": "string",
+    "required": false,
+    "maxLength": 50,
+    "default": "Chat with us on WhatsApp",
+    "description": "Tooltip text displayed on hover"
+  }
+}
