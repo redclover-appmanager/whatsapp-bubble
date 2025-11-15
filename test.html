@@ -8,12 +8,14 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       max-width: 800px;
-      margin: 50px auto;
-      padding: 20px;
+      margin: 0 auto;
+      padding: 40px 20px;
       line-height: 1.6;
     }
     h1 {
-      color: #25D366;
+      color: #333;
+      border-bottom: 3px solid #25D366;
+      padding-bottom: 10px;
     }
     .info {
       background: #f5f5f5;
@@ -23,6 +25,7 @@
     }
     .info h2 {
       margin-top: 0;
+      color: #25D366;
     }
     code {
       background: #e0e0e0;
@@ -30,60 +33,70 @@
       border-radius: 3px;
       font-family: 'Courier New', monospace;
     }
-    .content {
-      margin-bottom: 500px;
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
     }
   </style>
 </head>
 <body>
-  <div class="content">
-    <h1>WhatsApp Bubble Widget Test Page</h1>
-    
-    <div class="info">
-      <h2>Test Instructions</h2>
-      <p>The WhatsApp bubble should appear in the bottom-right corner of the page.</p>
-      <ul>
-        <li>Click the bubble to open WhatsApp</li>
-        <li>Hover over it to see the tooltip</li>
-        <li>Try pressing Tab to focus it, then Enter to activate</li>
-        <li>Scroll down to see it stays fixed in position</li>
-      </ul>
-    </div>
-
-    <div class="info">
-      <h2>Configuration</h2>
-      <p>This test uses the following configuration:</p>
-      <ul>
-        <li><strong>Phone:</strong> <code>5491112345678</code></li>
-        <li><strong>Message:</strong> <code>Hello! I'm interested in your services</code></li>
-        <li><strong>Position:</strong> <code>bottom-right</code></li>
-        <li><strong>Size:</strong> <code>60px</code></li>
-        <li><strong>Color:</strong> <code>#25D366</code> (WhatsApp green)</li>
-      </ul>
-    </div>
-
-    <div class="info">
-      <h2>Development Notes</h2>
-      <p>Make sure your App Manager backend is running and configured with:</p>
-      <ul>
-        <li>Website ID: <code>850e8400-e29b-41d4-a716-446655440001</code></li>
-        <li>App ID: <code>fb21f33f-06ef-4699-ba77-4a5a747853b7</code></li>
-        <li>App Manager URL: <code>http://localhost:3000</code></li>
-      </ul>
-    </div>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <h1>WhatsApp Bubble Widget Test Page</h1>
+  
+  <div class="info">
+    <h2>Test Instructions</h2>
+    <p>The WhatsApp bubble should appear in the bottom-right corner of this page.</p>
+    <ul>
+      <li><strong>Click</strong> the bubble to open WhatsApp</li>
+      <li><strong>Hover</strong> over it to see the animation</li>
+      <li><strong>Tab</strong> to it and press <strong>Enter</strong> or <strong>Space</strong> to test keyboard accessibility</li>
+    </ul>
   </div>
 
-<!-- WhatsApp Bubble Widget -->
-<script
-  src="http://localhost:3000/whatsapp-bubble.min.js"
-  data-website-id="850e8400-e29b-41d4-a716-446655440001"
-  data-app-id="7fd1463d-cd54-420d-afc0-c874879270cf"
-  data-app-manager-url="http://localhost:3000"
-  async
-></script>
+  <div class="note">
+    <strong>Note:</strong> Make sure your Koru backend is running at <code>http://localhost:3000</code> 
+    and configured with the test website and app IDs shown in the script tag below.
+  </div>
+
+  <div class="info">
+    <h2>Configuration</h2>
+    <p>The widget is configured with these test values:</p>
+    <ul>
+      <li><strong>Website ID:</strong> <code>850e8400-e29b-41d4-a716-446655440001</code></li>
+      <li><strong>App ID:</strong> <code>fb21f33f-06ef-4699-ba77-4a5a747853b7</code></li>
+      <li><strong>Koru URL:</strong> <code>http://localhost:3000</code></li>
+    </ul>
+    <p>These should match your Koru database configuration.</p>
+  </div>
+
+  <div class="info">
+    <h2>Expected Behavior</h2>
+    <p>When you click the bubble, it should:</p>
+    <ol>
+      <li>Detect if you're on mobile or desktop</li>
+      <li>Open <code>whatsapp://</code> on mobile or <code>https://web.whatsapp.com</code> on desktop</li>
+      <li>Include the configured phone number and pre-filled message</li>
+      <li>Track the click event via analytics</li>
+    </ol>
+  </div>
+
+  <p style="margin-top: 40px; color: #666;">
+    Scroll down to see more content and test the fixed positioning...
+  </p>
+
+  <div style="height: 1000px; background: linear-gradient(to bottom, #f9f9f9, #e9e9e9); 
+              border-radius: 8px; padding: 20px; margin-top: 20px;">
+    <p>This is extra content to test scrolling. The WhatsApp bubble should remain fixed in position.</p>
+  </div>
+
+  <!-- WhatsApp Bubble Widget -->
+  <script
+    src="http://localhost:5173/src/index.ts"
+    data-website-id="850e8400-e29b-41d4-a716-446655440001"
+    data-app-id="fb21f33f-06ef-4699-ba77-4a5a747853b7"
+    data-app-manager-url="http://localhost:3000"
+    type="module"
+  ></script>
 </body>
 </html>

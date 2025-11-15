@@ -21,7 +21,9 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "dependencies": {},
+  "dependencies": {
+    "@redclover/koru-sdk": "^1.0.0"
+  },
   "devDependencies": {
     "terser": "^5.36.0",
     "typescript": "^5.9.3",
