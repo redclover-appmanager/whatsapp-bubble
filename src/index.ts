@@ -385,6 +385,15 @@ class WhatsAppBubbleWidget extends KoruWidget {
   private getIconElement(): HTMLElement {
     const icon = document.createElement('div');
     
+    // Style the icon container to ensure proper centering
+    icon.style.cssText = `
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    `;
+    
     // Official WhatsApp logo SVG
     // BOILERPLATE TIP: Use inline SVG for icons to avoid external requests
     icon.innerHTML = `

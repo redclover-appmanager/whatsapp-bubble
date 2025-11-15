@@ -308,38 +308,114 @@ npm run dev
 
 3. Make sure your Koru backend is running and configured with the test website and app IDs
 
-### Building
+### Testing Locally
 
 ```bash
-# Build for production
+# 1. Build the widget
+npm run build
+
+# 2. Open test.html in your browser
+open test.html
+# or
+python3 -m http.server 8000
+# then visit http://localhost:8000/test.html
+```
+
+**Requirements:**
+- Koru backend running at `http://localhost:3000`
+- Test website and app IDs configured in Koru database
+- Built widget file at `dist/whatsapp-bubble.iife.js`
+
+### Building for Production
+
+```bash
 npm run build
 ```
 
-Output: `dist/whatsapp-bubble.min.js` (~12KB gzipped)
+Output: `dist/whatsapp-bubble.iife.js` (~3.65 kB gzipped)
 
 ## Deployment
 
-### 1. Build the Widget
+### 1. Build
 
 ```bash
 npm run build
 ```
 
+This creates `dist/whatsapp-bubble.iife.js` optimized for production (~3.65 kB gzipped).
+
 ### 2. Upload to CDN
 
-Upload `dist/whatsapp-bubble.min.js` to your CDN or hosting service.
+Choose one of these deployment options:
+
+#### Option A: Vercel (Recommended for Quick Deploy)
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy (first time)
+vercel
+
+# Deploy to production
+vercel --prod
+```
+
+Your widget will be available at: `https://your-project.vercel.app/dist/whatsapp-bubble.iife.js`
+
+#### Option B: GitHub Pages
+
+1. **Create a `gh-pages` branch:**
+```bash
+git checkout -b gh-pages
+npm run build
+git add dist -f
+git commit -m "Deploy widget"
+git push origin gh-pages
+```
+
+2. **Enable GitHub Pages:**
+   - Go to repo Settings → Pages
+   - Source: `gh-pages` branch
+   - Your widget URL: `https://username.github.io/repo-name/dist/whatsapp-bubble.iife.js`
+
+#### Option C: AWS S3 + CloudFront
+
+```bash
+# Build
+npm run build
+
+# Upload to S3
+aws s3 cp dist/whatsapp-bubble.iife.js \
+  s3://your-bucket/widgets/whatsapp-bubble/v1.0.0/whatsapp-bubble.iife.js \
+  --acl public-read \
+  --cache-control "public, max-age=31536000"
+
+# Your CDN URL
+# https://your-cloudfront-domain.cloudfront.net/widgets/whatsapp-bubble/v1.0.0/whatsapp-bubble.iife.js
+```
+
+#### Option D: Netlify
+
+```bash
+# Install Netlify CLI
+npm i -g netlify-cli
+
+# Deploy
+netlify deploy --prod --dir=dist
+```
+
+Your widget URL: `https://your-site.netlify.app/whatsapp-bubble.iife.js`
 
 ### 3. Register in Koru
 
 Go to **Admin Panel → Apps → Add App** and fill in:
 
 - **Name**: WhatsApp Bubble
-- **Description**: Floating WhatsApp contact button for your website
+- **Description**: Floating WhatsApp contact button
+- **Widget URL**: `https://your-cdn.com/whatsapp-bubble.iife.js` (from step 2)
+- **Configuration Schema**: Copy from `config-schema.json`
 - **Status**: Active
-- **Widget URL**: `https://your-cdn.com/whatsapp-bubble.min.js`
-- **Config Schema**: (paste the JSON schema above)
-
-## Customer Usage
 
 ### Embed Code
 

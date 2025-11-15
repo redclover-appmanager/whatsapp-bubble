@@ -170,10 +170,21 @@ npm run dev
 ```bash
 # Build for production
 npm run build
+# Output: dist/my-awesome-widget.iife.js
 
-# Upload to CDN (example)
-aws s3 cp dist/my-awesome-widget.min.js \
-  s3://my-cdn/widgets/my-awesome-widget/v1.0.0/
+# Option A: Deploy to Vercel (easiest)
+vercel --prod
+
+# Option B: Deploy to GitHub Pages
+git checkout -b gh-pages
+git add dist -f
+git commit -m "Deploy widget"
+git push origin gh-pages
+
+# Option C: Upload to AWS S3
+aws s3 cp dist/my-awesome-widget.iife.js \
+  s3://my-cdn/widgets/my-awesome-widget/v1.0.0/ \
+  --acl public-read
 ```
 
 ### Step 7: Register in Koru (5 min)
@@ -181,7 +192,7 @@ aws s3 cp dist/my-awesome-widget.min.js \
 1. Go to **Admin → Apps → Add App**
 2. Fill in:
    - Name: "My Awesome Widget"
-   - Widget URL: `https://cdn.example.com/widgets/my-awesome-widget/v1.0.0/my-awesome-widget.min.js`
+   - Widget URL: Use URL from Step 6 (e.g., `https://your-project.vercel.app/dist/my-awesome-widget.iife.js`)
    - Config Schema: (paste your `config-schema.json`)
 3. Save and note the App ID
 
@@ -189,10 +200,10 @@ aws s3 cp dist/my-awesome-widget.min.js \
 
 ```html
 <script
-  src="https://cdn.example.com/widgets/my-awesome-widget/v1.0.0/my-awesome-widget.min.js"
+  src="https://your-project.vercel.app/dist/my-awesome-widget.iife.js"
   data-website-id="real-website-id"
   data-app-id="real-app-id"
-  data-app-manager-url="https://app-manager.example.com"
+  data-app-manager-url="https://your-koru-backend.com"
   async
 ></script>
 ```

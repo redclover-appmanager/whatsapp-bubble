@@ -55,7 +55,11 @@
   </div>
 
   <div class="note">
-    <strong>Note:</strong> Make sure your Koru backend is running at <code>http://localhost:3000</code> 
+    <strong>Setup:</strong> Run <code>npm run build</code> first to generate the widget file, then open this page.
+  </div>
+
+  <div class="note">
+    <strong>Backend:</strong> Make sure your Koru backend is running at <code>http://localhost:3000</code> 
     and configured with the test website and app IDs shown in the script tag below.
   </div>
 
@@ -91,12 +95,12 @@
   </div>
 
   <!-- WhatsApp Bubble Widget -->
-  <script
-    src="http://localhost:5173/src/index.ts"
-    data-website-id="850e8400-e29b-41d4-a716-446655440001"
-    data-app-id="fb21f33f-06ef-4699-ba77-4a5a747853b7"
-    data-app-manager-url="http://localhost:3000"
-    type="module"
-  ></script>
+<script
+  src="./dist/whatsapp-bubble.iife.js"
+  data-website-id="850e8400-e29b-41d4-a716-446655440001"
+  data-app-id="7fd1463d-cd54-420d-afc0-c874879270cf"
+  data-app-manager-url="http://localhost:3000"
+  async
+></script>
 </body>
 </html>
