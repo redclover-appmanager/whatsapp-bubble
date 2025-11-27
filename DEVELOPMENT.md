@@ -2,6 +2,8 @@
 
 > **For Widget Developers:** This guide explains how to build Koru-compatible widgets using this project as a reference.
 
+**SDK Version:** This guide uses `@redclover/koru-sdk` v1.1.0+ which includes built-in preview mode support for seamless integration with the Koru editor.
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
@@ -64,11 +66,14 @@ npm run dev
 
 ### 4. Open Test Page
 
-Open `test.html` in your browser or navigate to `http://localhost:5173/test.html`
+```bash
+npm run build
+open test-preview.html
+```
 
 ## Understanding the SDK
 
-> **📦 SDK Note:** Install via `npm install @redclover/koru-sdk`. The base class is `KoruWidget`.
+> **📦 SDK Note:** Install via `npm install @redclover/koru-sdk`. The base class is `KoruWidget`. Version 1.1.0+ includes built-in preview mode support.
 
 ### SDK Architecture
 
@@ -88,13 +93,14 @@ Open `test.html` in your browser or navigate to `http://localhost:5173/test.html
 
 ### What the SDK Handles Automatically
 
-1. **Script Tag Parsing** - Reads `data-*` attributes
-2. **Authorization** - Validates with Koru API
-3. **Configuration** - Fetches and caches widget config
-4. **Retry Logic** - Retries failed requests (3 attempts)
-5. **Error Handling** - Catches and logs errors
-6. **Lifecycle** - Calls hooks in correct order
-7. **Analytics** - Sends events to Koru (if enabled)
+1. **Preview Mode Detection** - Automatically detects `window.__KORU_PREVIEW_CONFIG__`
+2. **Script Tag Parsing** - Reads `data-*` attributes
+3. **Authorization** - Validates with Koru API
+4. **Configuration** - Fetches and caches widget config
+5. **Retry Logic** - Retries failed requests (3 attempts)
+6. **Error Handling** - Catches and logs errors
+7. **Lifecycle** - Calls hooks in correct order
+8. **Analytics** - Sends events to Koru (if enabled)
 
 ### What You Need to Implement
 
@@ -485,7 +491,7 @@ Create `config-schema.json`:
 
 #### Step 9: Test Locally
 
-Update `test.html`:
+Update `test-preview.html`:
 
 ```html
 <!DOCTYPE html>
@@ -496,22 +502,31 @@ Update `test.html`:
 <body>
   <h1>Counter Widget Test</h1>
   
-  <script
-    src="http://localhost:5173/src/index.ts"
-    data-website-id="test-website-id"
-    data-app-id="test-app-id"
-    data-app-manager-url="http://localhost:3000"
-    type="module"
-  ></script>
+  <script>
+    window.__KORU_PREVIEW_CONFIG__ = {
+      enabled: true,
+      initial_value: 0,
+      max_value: 10,
+      button_color: '#007bff'
+    };
+  </script>
+  <script src="./dist/counter-widget.iife.js"></script>
 </body>
 </html>
+```
+
+**Run:**
+
+```bash
+npm run build
+open test-preview.html
 ```
 
 #### Step 10: Build for Production
 
 ```bash
 npm run build
-# Output: dist/counter-widget.min.js
+# Output: dist/counter-widget.iife.js
 ```
 
 ## Advanced Topics

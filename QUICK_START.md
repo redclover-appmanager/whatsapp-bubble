@@ -2,6 +2,8 @@
 
 > **TL;DR:** Copy this project, change 5 things, deploy. This guide gets you from zero to deployed widget in 30 minutes.
 
+**SDK Version:** This guide uses `@redclover/koru-sdk` v1.1.0+ which includes built-in preview mode support.
+
 ## 🚀 30-Minute Widget
 
 ### Step 1: Copy This Project (2 min)
@@ -141,23 +143,25 @@ async onDestroy() {
 
 ### Step 5: Test Locally (5 min)
 
-**Update `test.html`:**
+Update `test-preview.html`:
 
 ```html
-<script
-  src="http://localhost:5173/src/index.ts"
-  data-website-id="test-website-123"
-  data-app-id="test-app-456"
-  data-app-manager-url="http://localhost:3000"
-  type="module"
-></script>
+<script>
+  window.__KORU_PREVIEW_CONFIG__ = {
+    enabled: true,
+    api_key: 'test-key-123',
+    theme: 'light',
+    max_items: 10
+  };
+</script>
+<script src="./dist/my-awesome-widget.iife.js"></script>
 ```
 
-**Run dev server:**
+**Run:**
 
 ```bash
-npm run dev
-# Open http://localhost:5173/test.html
+npm run build
+open test-preview.html
 ```
 
 **Check console for:**
@@ -172,16 +176,16 @@ npm run dev
 npm run build
 # Output: dist/my-awesome-widget.iife.js
 
-# Option A: Deploy to Vercel (easiest)
+# Option A: Deploy to GitHub (easiest for testing)
+git add dist/my-awesome-widget.iife.js -f
+git commit -m "Build widget"
+git push origin main
+# URL: https://raw.githubusercontent.com/username/repo/main/dist/my-awesome-widget.iife.js
+
+# Option B: Deploy to Vercel
 vercel --prod
 
-# Option B: Deploy to GitHub Pages
-git checkout -b gh-pages
-git add dist -f
-git commit -m "Deploy widget"
-git push origin gh-pages
-
-# Option C: Upload to AWS S3
+# Option C: Deploy to AWS S3
 aws s3 cp dist/my-awesome-widget.iife.js \
   s3://my-cdn/widgets/my-awesome-widget/v1.0.0/ \
   --acl public-read
@@ -200,13 +204,15 @@ aws s3 cp dist/my-awesome-widget.iife.js \
 
 ```html
 <script
-  src="https://your-project.vercel.app/dist/my-awesome-widget.iife.js"
+  src="https://your-cdn.com/dist/my-awesome-widget.iife.js"
   data-website-id="real-website-id"
   data-app-id="real-app-id"
   data-app-manager-url="https://your-koru-backend.com"
   async
 ></script>
 ```
+
+The SDK automatically handles both preview mode (Koru editor) and production mode.
 
 ## 📝 Cheat Sheet
 

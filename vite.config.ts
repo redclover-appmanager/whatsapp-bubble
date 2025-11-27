@@ -4,20 +4,21 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/index.ts',
-      name: 'WhatsAppBubbleWidget',
-      fileName: 'whatsapp-bubble',
-      formats: ['iife']
-    },
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
+      name: 'WhatsAppBubble',
+      formats: ['iife'],
+      fileName: () => 'whatsapp-bubble.iife.js'
     },
     rollupOptions: {
       output: {
-        inlineDynamicImports: true
+        // Ensure all code is bundled into a single file
+        inlineDynamicImports: true,
+      }
+    },
+    // Minify for production
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false, // Keep console logs for debugging
       }
     }
   }

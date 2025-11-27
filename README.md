@@ -4,9 +4,9 @@
 
 A floating WhatsApp contact button widget that displays in a corner of the website. When clicked, opens WhatsApp with a pre-configured phone number and optional message.
 
-Built using the `@redclover/koru-sdk`.
+Built using the `@redclover/koru-sdk` v1.1.0+.
 
-> **📦 SDK Note:** Install via `npm install @redclover/koru-sdk`. The base class is `KoruWidget`.
+> **📦 SDK Note:** Install via `npm install @redclover/koru-sdk`. The base class is `KoruWidget`. Version 1.1.0+ includes built-in preview mode support.
 
 ## 📋 Table of Contents
 
@@ -42,7 +42,8 @@ This project includes comprehensive documentation for different audiences:
 - ✅ Hover animations and tooltips
 - ✅ Analytics tracking
 - ✅ Configuration caching
-- ✅ Lightweight (~12KB gzipped)
+- ✅ Preview mode support (for Koru editor)
+- ✅ Lightweight (~9.5KB, ~3.9KB gzipped)
 
 ### Developer Features
 - 📚 **Comprehensive Documentation** - Inline comments, JSDoc, and guides
@@ -80,8 +81,8 @@ npm install
 # Start development server
 npm run dev
 
-# Open test.html in your browser
-open test.html
+# Open test-preview.html in your browser
+open test-preview.html
 ```
 
 ## For Widget Developers
@@ -175,9 +176,9 @@ async onDestroy() {
 
 #### 6. **Testing Your Widget**
 
-1. **Update `test.html`** with your test configuration
-2. **Run dev server**: `npm run dev`
-3. **Open in browser**: `http://localhost:5173/test.html`
+1. **Update `test-preview.html`** with your test configuration
+2. **Build widget**: `npm run build`
+3. **Open in browser**: `open test-preview.html`
 4. **Check console** for SDK debug logs (set `debug: true`)
 5. **Test all config options** by modifying Koru settings
 
@@ -299,32 +300,15 @@ npm run dev
 
 ### Testing
 
-1. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-2. Open `test.html` in your browser
-
-3. Make sure your Koru backend is running and configured with the test website and app IDs
-
-### Testing Locally
-
 ```bash
 # 1. Build the widget
 npm run build
 
-# 2. Open test.html in your browser
-open test.html
-# or
-python3 -m http.server 8000
-# then visit http://localhost:8000/test.html
+# 2. Open test file in your browser
+open test-preview.html
 ```
 
-**Requirements:**
-- Koru backend running at `http://localhost:3000`
-- Test website and app IDs configured in Koru database
-- Built widget file at `dist/whatsapp-bubble.iife.js`
+**Note:** `test-preview.html` uses preview mode (no backend required). Update `window.__KORU_PREVIEW_CONFIG__` to test different configurations.
 
 ### Building for Production
 
@@ -332,7 +316,7 @@ python3 -m http.server 8000
 npm run build
 ```
 
-Output: `dist/whatsapp-bubble.iife.js` (~3.65 kB gzipped)
+Output: `dist/whatsapp-bubble.iife.js` (~9.5 KB, ~3.9 KB gzipped)
 
 ## Deployment
 
@@ -342,7 +326,7 @@ Output: `dist/whatsapp-bubble.iife.js` (~3.65 kB gzipped)
 npm run build
 ```
 
-This creates `dist/whatsapp-bubble.iife.js` optimized for production (~3.65 kB gzipped).
+This creates `dist/whatsapp-bubble.iife.js` optimized for production (~9.5 KB, ~3.9 KB gzipped).
 
 ### 2. Upload to CDN
 
@@ -474,11 +458,12 @@ The widget extends `KoruWidget` from `@redclover/koru-sdk` and implements these 
 
 ### SDK Features (Automatic)
 
-The `@redclover/koru-sdk` provides these features automatically:
+The `@redclover/koru-sdk` v1.1.0+ provides these features automatically:
 
+- ✅ **Preview Mode**: Detects `window.__KORU_PREVIEW_CONFIG__` for Koru editor
 - ✅ **Authorization**: Validates widget access with Koru
 - ✅ **Configuration fetching**: Retrieves config from Koru API
-- ✅ **Caching**: Caches configuration for 1 hour
+- ✅ **Caching**: Caches configuration for 1 hour (configurable)
 - ✅ **Error handling**: Automatic retry logic (3 attempts)
 - ✅ **Analytics tracking**: `this.track()` method for events
 - ✅ **Mobile detection**: `this.isMobile()` helper
@@ -507,10 +492,11 @@ The widget itself only needs to implement:
 
 ## Performance
 
-- Bundle size: ~12KB gzipped
+- Bundle size: ~9.5 KB (~3.9 KB gzipped)
 - Load time: < 100ms
 - No impact on customer website performance
-- Configuration cached for 1 hour
+- Configuration cached for 1 hour (configurable)
+- Preview mode: Zero API calls in Koru editor
 
 ## Accessibility
 

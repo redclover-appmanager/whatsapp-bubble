@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Bubble Widget - Preview Mode Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #333;
+      border-bottom: 3px solid #25D366;
+      padding-bottom: 10px;
+    }
+    .info {
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .info h2 {
+      margin-top: 0;
+      color: #25D366;
+    }
+    code {
+      background: #e0e0e0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .note {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 15px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>WhatsApp Bubble Widget - Preview Mode Test</h1>
+  
+  <div class="info">
+    <h2>Test Mode: Preview Configuration</h2>
+    <p>This page tests the widget using <code>window.__KORU_PREVIEW_CONFIG__</code> instead of fetching from the API.</p>
+    <p>The WhatsApp bubble should appear in the bottom-right corner of this page.</p>
+  </div>
+
+  <div class="note">
+    <strong>✓ No Backend Required:</strong> This test works without a running Koru backend because it uses preview mode.
+  </div>
+
+  <div class="info">
+    <h2>Configuration</h2>
+    <p>The widget is configured with these preview values:</p>
+    <ul>
+      <li><strong>Enabled:</strong> <code>true</code></li>
+      <li><strong>Phone Number:</strong> <code>5491112345678</code></li>
+      <li><strong>Default Message:</strong> <code>Hello from preview mode!</code></li>
+      <li><strong>Bubble Size:</strong> <code>60px</code></li>
+      <li><strong>Offset X:</strong> <code>20px</code></li>
+      <li><strong>Offset Y:</strong> <code>20px</code></li>
+    </ul>
+  </div>
+
+  <div class="info">
+    <h2>Test Instructions</h2>
+    <ul>
+      <li><strong>Click</strong> the bubble to open WhatsApp</li>
+      <li><strong>Hover</strong> over it to see the animation</li>
+      <li>Check browser console for debug logs</li>
+    </ul>
+  </div>
+
+  <p style="margin-top: 40px; color: #666;">
+    Scroll down to see more content and test the fixed positioning...
+  </p>
+
+  <div style="height: 1000px; background: linear-gradient(to bottom, #f9f9f9, #e9e9e9); 
+              border-radius: 8px; padding: 20px; margin-top: 20px;">
+    <p>This is extra content to test scrolling. The WhatsApp bubble should remain fixed in position.</p>
+  </div>
+
+  <!-- Simulate preview mode -->
+  <script>
+    window.__KORU_PREVIEW_CONFIG__ = {
+      enabled: true,
+      phone_number: '5491112345678',
+      default_message: 'Hello from preview mode!',
+      bubble_size: '60',
+      offset_x: '20',
+      offset_y: '20'
+    };
+  </script>
+  
+  <!-- Load your widget -->
+  <script src="./dist/whatsapp-bubble.iife.js"></script>
+</body>
+</html>
